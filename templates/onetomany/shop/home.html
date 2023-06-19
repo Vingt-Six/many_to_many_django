@@ -1,0 +1,37 @@
+{% extends 'onetomany/base.html' %}
+
+{% block content %}
+<h1>Products and Categroy</h1>
+<a href="/create/category/" class='btn btn-warning'>Create Category</a>
+<a href="/create/product/" class='btn btn-secondary'>Create Product</a>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">description</th>
+        <th scope="col">prix</th>
+        <th scope="col">stock</th>
+        <th scope="col">category</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <th scope="row">{{ product.id }}</th>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.prix }}</td>
+        <td>{{ product.stock }}</td>
+        <td>
+            {% for category in product.category.all %}
+                {{ category.name }}
+            {% endfor %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends 'onetomany/base.html' %}
+
+{% block content %}
+<h1>Cars and Colors</h1>
+<a href="/create/car/" class='btn btn-warning'>Create Car</a>
+<a href="/create/color/" class='btn btn-secondary'>Create Color</a>
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Year</th>
+        <th scope="col">Color</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for car in cars %}
+      <tr>
+        <th scope="row">{{ car.id }}</th>
+        <td>{{ car.name }}</td>
+        <td>{{ car.year }}</td>
+        <td>{{ car.color }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% for color in colors %}
+    <h3>{{ color.color }}</h3>
+    <form action="/destroy/color/{{ color.id }}">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    {% for car in cars %}
+        {% if car.color.id == color.id %}
+            <p>{{ car.name }}</p>
+        {% endif %}
+    {% endfor %}
+  {% endfor %}
+
+{% endblock content %}
